@@ -5,15 +5,33 @@ export interface AvailablePair {
   seats: [string, string]; // e.g., ['A', 'B']
   trainId: string;
   trainName: string;
+  date: string;
+  time: string;
+  departure: string;
+  arrival: string;
 }
 
 /**
- * 新幹線で最前列（1行目）の隣り合った2席が空いている場所を検索
+ * 新幹線で最前列（1行目）の隣り合った2席が空いている場所を検索（日付と区間で絞込み）
  */
-export function findAvailableAdjacentSeats(trains: Train[]): AvailablePair[] {
+export function findAvailableAdjacentSeats(
+  trains: Train[],
+  date?: string,
+  departure?: string,
+  arrival?: string
+): AvailablePair[] {
   const results: AvailablePair[] = [];
 
   for (const train of trains) {
+    // 日付でフィルタ
+    if (date && train.date !== date) continue;
+
+    // 出発地でフィルタ
+    if (departure && train.departure !== departure) continue;
+
+    // 到着地でフィルタ
+    if (arrival && train.arrival !== arrival) continue;
+
     for (const seat of train.seats) {
       // 最前列（1行目）のみを検索
       if (seat.row !== 1) continue;
@@ -25,6 +43,10 @@ export function findAvailableAdjacentSeats(trains: Train[]): AvailablePair[] {
           seats: ['A', 'B'],
           trainId: train.id,
           trainName: train.name,
+          date: train.date,
+          time: train.time,
+          departure: train.departure,
+          arrival: train.arrival,
         });
       }
       // C-D が空いているか
@@ -34,13 +56,20 @@ export function findAvailableAdjacentSeats(trains: Train[]): AvailablePair[] {
           seats: ['C', 'D'],
           trainId: train.id,
           trainName: train.name,
+          date: train.date,
+          time: train.time,
+          departure: train.departure,
+          arrival: train.arrival,
         });
       }
     }
   }
 
-  // 新幹線IDでソート
+  // 日付と時間でソート
   return results.sort((a, b) => {
-    return a.trainId.localeCompare(b.trainId);
+    if (a.date !== b.date) {
+      return a.date.localeCompare(b.date);
+    }
+    return a.time.localeCompare(b.time);
   });
 }
