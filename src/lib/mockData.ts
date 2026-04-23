@@ -1,147 +1,79 @@
-// モック新幹線データ
-export interface Train {
+// 飲食店待ち時間検索データ
+export interface Restaurant {
   id: string;
   name: string;
-  departure: string;
-  arrival: string;
-  date: string;
-  time: string;
-  seats: Seat[];
+  genre: string; // ラーメン、焼肉、カレー、寿司など
+  region: string; // 地域（東京、大阪、福岡など）
+  address: string;
+  waitTime: number; // 待ち時間（分）
+  capacity: number; // 収容人数
+  currentCustomers: number; // 現在の客数
+  operatingHours: string; // 営業時間
+  rating: number; // 評価 (0-5)
+  phone: string;
+  lastUpdated: string; // 最終更新時刻
 }
 
-export interface Seat {
-  row: number;
-  seatA: boolean; // true = occupied, false = available
-  seatB: boolean;
-  seatC: boolean;
-  seatD: boolean;
-  seatE: boolean;
-}
+// 利用可能な地域
+export const regions = [
+  '東京', '神奈川', '埼玉', '千葉',
+  '大阪', '京都', '兵庫',
+  '愛知', '福岡', '北海道'
+];
 
-// 利用可能な駅
-export const stations = ['東京', '名古屋', '京都', '新大阪', '広島'];
+// 利用可能なジャンル
+export const genres = [
+  'ラーメン', '焼肉', 'カレー', '寿司', 'うどん',
+  'そば', 'パスタ', 'ハンバーガー', 'イタリアン', '中華',
+  'タイ料理', 'インド料理', 'フレンチ', '居酒屋', '定食'
+];
 
-// 利用可能な日付
-export const availableDates = ['2026-04-23', '2026-04-24', '2026-04-25'];
+// モック飲食店データ生成関数
+const generateRestaurants = (): Restaurant[] => {
+  const restaurants: Restaurant[] = [];
+  const restaurantNames: { [key: string]: string[] } = {
+    'ラーメン': ['らーめん太郎', '味噌ラーメン家', 'とんこつ伝説', '醤油らーめん'],
+    '焼肉': ['焼肉きんぐ', '牛角', '赤いれんが', '和牛レストラン'],
+    'カレー': ['カレーハウスCoCo壱番屋', 'スパイスキッチン', 'インドカレーラージ', 'カレー本舗'],
+    '寿司': ['寿司ザンマイ', '回転寿司屋台', '握り寿司職人', '海鮮丼スタジアム'],
+    'うどん': ['はなまるうどん', 'うどん茶屋', '讃岐うどん', 'うどん本家'],
+    'そば': ['そば処やぶ', '蕎麦居酒屋', 'そばの名店', '十割蕎麦'],
+    'パスタ': ['パスタハウス', 'イタリアンキッチン', 'パスタの館', 'スパゲッティ本家'],
+    'ハンバーガー': ['ハンバーグファクトリー', 'バーガーキング', 'フレッシュバーガー', 'ジューシーバーガー'],
+  };
 
-// モック座席データ生成関数
-const generateSeats = (seed: number): Seat[] => {
-  const seats: Seat[] = [];
-  for (let i = 1; i <= 10; i++) {
-    const hash = (seed * i * 12345) % 256;
-    seats.push({
-      row: i,
-      seatA: hash % 4 === 0,
-      seatB: hash % 4 === 1,
-      seatC: hash % 4 === 2,
-      seatD: (hash + 1) % 4 === 0,
-      seatE: (hash + 1) % 4 === 1,
-    });
+  const genreArray = Object.keys(restaurantNames);
+  const regionArray = regions;
+
+  let id = 1;
+  for (const genre of genreArray) {
+    for (const region of regionArray.slice(0, 6)) {
+      const names = restaurantNames[genre];
+      const name = names[Math.floor(Math.random() * names.length)];
+      const waitTime = Math.floor(Math.random() * 120); // 0-120分
+      const capacity = 20 + Math.floor(Math.random() * 80);
+      const currentCustomers = Math.floor(Math.random() * capacity);
+      const rating = Math.floor(Math.random() * 20) / 4 + 2.5; // 2.5-5.0
+
+      restaurants.push({
+        id: `R${id}`,
+        name: `${name} ${region}`,
+        genre,
+        region,
+        address: `${region}都市 〇〇区〇〇町`,
+        waitTime,
+        capacity,
+        currentCustomers,
+        operatingHours: '11:00-23:00',
+        rating: Math.round(rating * 10) / 10,
+        phone: `03-XXXX-${String(id).padStart(4, '0')}`,
+        lastUpdated: new Date(Date.now() - Math.random() * 600000).toISOString().slice(11, 16),
+      });
+      id++;
+    }
   }
-  return seats;
+
+  return restaurants;
 };
 
-export const mockTrains: Train[] = [
-  // 2026-04-23
-  {
-    id: 'N225',
-    name: 'のぞみ225号',
-    departure: '東京',
-    arrival: "新大阪",
-    date: '2026-04-23',
-    time: '08:00',
-    seats: generateSeats(1),
-  },
-  {
-    id: 'N226',
-    name: 'のぞみ226号',
-    departure: '東京',
-    arrival: '京都',
-    date: '2026-04-23',
-    time: '09:30',
-    seats: generateSeats(2),
-  },
-  {
-    id: 'H201',
-    name: 'ひかり201号',
-    departure: '東京',
-    arrival: '広島',
-    date: '2026-04-23',
-    time: '10:00',
-    seats: generateSeats(3),
-  },
-  {
-    id: 'N227',
-    name: 'のぞみ227号',
-    departure: '東京',
-    arrival: "新大阪",
-    date: '2026-04-23',
-    time: '12:00',
-    seats: generateSeats(4),
-  },
-  // 2026-04-24
-  {
-    id: 'N228',
-    name: 'のぞみ228号',
-    departure: '東京',
-    arrival: '名古屋',
-    date: '2026-04-24',
-    time: '07:30',
-    seats: generateSeats(5),
-  },
-  {
-    id: 'N229',
-    name: 'のぞみ229号',
-    departure: '名古屋',
-    arrival: "新大阪",
-    date: '2026-04-24',
-    time: '08:15',
-    seats: generateSeats(6),
-  },
-  {
-    id: 'H202',
-    name: 'ひかり202号',
-    departure: '東京',
-    arrival: '広島',
-    date: '2026-04-24',
-    time: '11:00',
-    seats: generateSeats(7),
-  },
-  // 2026-04-25
-  {
-    id: 'N230',
-    name: 'のぞみ230号',
-    departure: '東京',
-    arrival: '京都',
-    date: '2026-04-25',
-    time: '09:00',
-    seats: generateSeats(8),
-  },
-  {
-    id: 'N231',
-    name: 'のぞみ231号',
-    departure: '京都',
-    arrival: "新大阪",
-    date: '2026-04-25',
-    time: '09:45',
-    seats: generateSeats(9),
-  },
-  {
-    id: 'H203',
-    name: 'ひかり203号',
-    departure: '東京',
-    arrival: '広島',
-    date: '2026-04-25',
-    time: '13:00',
-    seats: generateSeats(10),
-  },
-  {
-    id: 'N225_old',
-    name: 'のぞみ225号',
-    departure: '東京',
-    arrival: "新大阪",
-    date: '2026-04-25',
-    time: '14:30',
-    seats: generateSeats(11),
-  },
-];
+export const mockRestaurants = generateRestaurants();

@@ -1,13 +1,14 @@
-# 新幹線隣り合った2席検索アプリ
+# 飲食店待ち時間リアルタイム検索
 
-新幹線で隣り合った2席（A-B または C-D）が空いている座席を検索するWebアプリケーションです。
+全国の飲食店の待ち時間をリアルタイムで検索するWebアプリケーションです。
 
 ## 特徴
 
-- 🚄 複数の新幹線から空席を検索
-- 🔍 隣り合った2席の検索に特化
-- 💻 モダンなUI（Tailwind CSS）
-- ⚡ Vercelにデプロイ可能
+- 🍜 全国の飲食店から検索可能
+- 📍 地域とジャンルでフィルタリング
+- ⏱️ リアルタイムの待ち時間表示
+- ⭐ 評価・混雑状況の表示
+- 📱 レスポンシブデザイン
 
 ## 技術スタック
 
@@ -38,35 +39,20 @@ npm start
 
 ## Vercelデプロイ
 
-このプロジェクトはVercelに最適化されています。
-
-```bash
-# Vercel CLIをインストール（まだの場合）
-npm install -g vercel
-
-# デプロイ
-vercel
-```
-
-または GitHub を接続して自動デプロイを設定することもできます。
+このプロジェクトはVercelに最適化されています。デプロイ手順については VERCEL_DEPLOYMENT.md を参照してください。
 
 ## カスタムドメイン
 
 Vercelダッシュボードで `nete.jp` をカスタムドメインとして設定できます。
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 使用方法
 
-## Learn More
+1. 地域を選択（オプション）
+2. ジャンルを選択（オプション）
+3. 「検索開始」ボタンをクリック
+4. 待ち時間が少ない順に飲食店が表示されます
 
-To learn more about Next.js, take a look at the following resources:
+## 注意
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+このアプリケーションはデモンストレーション用で、モックデータを使用しています。
+実際の待ち時間情報については、Googleマップやお店の公式情報をご確認ください。
