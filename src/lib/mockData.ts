@@ -15,6 +15,7 @@ export interface Seat {
   seatB: boolean;
   seatC: boolean;
   seatD: boolean;
+  seatE: boolean;
 }
 
 // 利用可能な駅
@@ -30,10 +31,11 @@ const generateSeats = (seed: number): Seat[] => {
     const hash = (seed * i * 12345) % 256;
     seats.push({
       row: i,
-      seatA: hash % 3 === 0,
-      seatB: hash % 3 === 1,
-      seatC: (hash + 1) % 3 === 0,
-      seatD: (hash + 1) % 3 === 1,
+      seatA: hash % 4 === 0,
+      seatB: hash % 4 === 1,
+      seatC: hash % 4 === 2,
+      seatD: (hash + 1) % 4 === 0,
+      seatE: (hash + 1) % 4 === 1,
     });
   }
   return seats;

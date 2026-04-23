@@ -49,11 +49,11 @@ export function findAvailableAdjacentSeats(
           arrival: train.arrival,
         });
       }
-      // C-D が空いているか
-      if (!seat.seatC && !seat.seatD) {
+      // D-E が空いているか
+      if (!seat.seatD && !seat.seatE) {
         results.push({
           row: seat.row,
-          seats: ['C', 'D'],
+          seats: ['D', 'E'],
           trainId: train.id,
           trainName: train.name,
           date: train.date,
