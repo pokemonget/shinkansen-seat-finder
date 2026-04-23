@@ -124,7 +124,7 @@ export default function Home() {
                       key={index}
                       className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-500 rounded-lg p-6 hover:shadow-md transition-shadow"
                     >
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-3 gap-4 mb-4">
                         <div>
                           <h3 className="text-lg font-bold text-gray-800">
                             {result.trainName}
@@ -132,22 +132,35 @@ export default function Home() {
                           <p className="text-sm text-gray-600">
                             {result.trainId}
                           </p>
-                          <p className="text-sm text-gray-600 mt-1">
-                            {result.departure} → {result.arrival}
-                          </p>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                            運行日
+                          </div>
+                          <div className="text-lg font-bold text-blue-600">
+                            {result.date}
+                          </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-lg font-semibold text-gray-700">
-                            {result.date}
+                          <div className="text-sm font-semibold text-gray-700 mb-1">
+                            時刻
                           </div>
                           <div className="text-2xl font-bold text-green-600">
                             {result.time}
                           </div>
                         </div>
                       </div>
-                      <div className="mt-4 pt-4 border-t border-green-200">
+                      <div className="mb-4">
+                        <p className="text-sm text-gray-600">
+                          {result.departure} → {result.arrival}
+                        </p>
+                      </div>
+                      <div className="pt-4 border-t border-green-200 flex items-center justify-between">
                         <div className="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-lg font-bold">
                           最前列 {result.seats[0]}-{result.seats[1]}席
+                        </div>
+                        <div className="text-sm font-semibold text-gray-600">
+                          列車ID: {result.trainId}
                         </div>
                       </div>
                     </div>

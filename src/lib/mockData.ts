@@ -19,7 +19,7 @@ export interface Seat {
 }
 
 // 利用可能な駅
-export const stations = ['東京', '名古屋', '京都', '大阪', '広島'];
+export const stations = ['東京', '名古屋', '京都', '新大阪', '広島'];
 
 // 利用可能な日付
 export const availableDates = ['2026-04-23', '2026-04-24', '2026-04-25'];
@@ -47,7 +47,7 @@ export const mockTrains: Train[] = [
     id: 'N225',
     name: 'のぞみ225号',
     departure: '東京',
-    arrival: '大阪',
+    arrival: "新大阪",
     date: '2026-04-23',
     time: '08:00',
     seats: generateSeats(1),
@@ -74,7 +74,7 @@ export const mockTrains: Train[] = [
     id: 'N227',
     name: 'のぞみ227号',
     departure: '東京',
-    arrival: '大阪',
+    arrival: "新大阪",
     date: '2026-04-23',
     time: '12:00',
     seats: generateSeats(4),
@@ -93,7 +93,7 @@ export const mockTrains: Train[] = [
     id: 'N229',
     name: 'のぞみ229号',
     departure: '名古屋',
-    arrival: '大阪',
+    arrival: "新大阪",
     date: '2026-04-24',
     time: '08:15',
     seats: generateSeats(6),
@@ -121,7 +121,7 @@ export const mockTrains: Train[] = [
     id: 'N231',
     name: 'のぞみ231号',
     departure: '京都',
-    arrival: '大阪',
+    arrival: "新大阪",
     date: '2026-04-25',
     time: '09:45',
     seats: generateSeats(9),
@@ -139,7 +139,7 @@ export const mockTrains: Train[] = [
     id: 'N225_old',
     name: 'のぞみ225号',
     departure: '東京',
-    arrival: '大阪',
+    arrival: "新大阪",
     date: '2026-04-25',
     time: '14:30',
     seats: generateSeats(11),
